@@ -1,0 +1,17 @@
+###########################################################
+## Query May 2025 dataset for casual riders.             ##
+## To query other dataset change '202505' to appropriate ##
+## date in the table.                                    ##
+## To query annual members, change 'casual' to 'member'. ##
+###########################################################
+SELECT 
+  weekday_start,
+  COUNT(*) AS day_ride_nr
+FROM
+  `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+WHERE
+  member_casual = 'casual'
+GROUP BY
+  weekday_start
+ORDER BY
+  weekday_start ASC
