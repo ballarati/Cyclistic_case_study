@@ -1,3 +1,8 @@
+#################################################################
+## Query May 2025 dataset.                                     ##
+## To query other dataset, change '202505' to appropriate date ##
+## in the tables.                                              ##
+#################################################################
 SELECT
   member_casual,
   COUNT(*) AS total_rides_by_type,
@@ -5,11 +10,9 @@ SELECT
     SELECT
       COUNT(*)
     FROM
-      # for query other dataset, change 202505 to the appropriate table name
       `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
   ), 2) AS type_ratio
 FROM
-  # for query other dataset, change 202505 to the appropriate table name
   `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
 GROUP BY
   member_casual
