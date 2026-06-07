@@ -1,0 +1,26 @@
+#######################################################################
+## Query May 2025 dataset for travel time between 10 and 20 minutes. ##
+## To query other dataset change '202505' to appropriate date in the ##
+## tables.                                                           ##
+## To change the travel time interval modify the WHERE clause to     ##
+## appropriate condition.                                            ##
+#######################################################################
+SELECT
+  member_casual,
+  COUNT(*) AS nr_by_travel_time,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+    WHERE
+      travel_time_min >= 10 AND travel_time_min < 20
+  ) AS nr_by_travel_time_total
+FROM
+  `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+WHERE
+  travel_time_min >= 10 AND travel_time_min < 20
+GROUP BY
+  member_casual
+ORDER BY
+  member_casual
