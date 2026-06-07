@@ -1,8 +1,8 @@
-#################################################################
-## Query May 2025 dataset.                                     ##
-## To query other dataset, change '202505' to appropriate date ##
-## in the tables.                                              ##
-#################################################################
+############################################################
+## Query May 2025 dataset.                                ##
+## To query other dataset, change '202505' to appropriate ##
+## date in the tables.                                    ##
+############################################################
 SELECT
   member_casual,
   COUNT(*) AS total_rides_by_type,
