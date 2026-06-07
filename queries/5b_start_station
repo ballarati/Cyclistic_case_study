@@ -1,0 +1,32 @@
+###########################################################
+## Query May 2025 dataset.                               ##
+## To query other dataset change '202505' to appropriate ##
+## date in the tables.                                   ##
+###########################################################
+SELECT
+  start_station_name,
+  COUNT(*) AS total_station_ride,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+    WHERE
+      start_station_name IS NOT NULL
+  ) AS total_rides,
+  ROUND(COUNT(*) / (
+    SELECT
+      COUNT(*)
+    FROM
+      `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+    WHERE
+      start_station_name IS NOT NULL
+  )*100,2) AS station_rides_per_total_rides
+FROM
+  `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+WHERE
+  start_station_name IS NOT NULL
+GROUP BY
+  start_station_name
+ORDER BY
+  total_station_ride DESC
