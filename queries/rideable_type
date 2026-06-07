@@ -1,0 +1,47 @@
+###########################################################
+## Query May 2025 dataset for classic bikes.             ##
+## To query other dataset change '202505' to appriproate ##
+## date in the tables.                                   ##
+## To query electric bikes, change 'classic_bike' to     ##
+## 'electric bike.'                                      ##
+###########################################################
+SELECT
+  rideable_type,
+  member_casual,
+  COUNT(*) AS total_rides_by_member_type,
+  ROUND(COUNT(*) / (
+    SELECT
+      COUNT(*)
+    FROM
+      `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+    WHERE
+      rideable_type = 'classic_bike'
+  ),2) AS member_type_ratio,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+    WHERE
+      rideable_type = 'classic_bike'
+  ) AS total_by_bike_type,
+  ROUND((
+    SELECT
+      COUNT(*)
+    FROM
+      `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+    WHERE
+      rideable_type = 'classic_bike'
+  )  / (
+    SELECT
+      COUNT(*)
+    FROM
+      `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+  ), 2) AS bike_type_total_ratio
+FROM
+  `learning-bigquery-481810.cyclistic.202505-divvy-tripdata`
+WHERE
+  rideable_type = 'classic_bike'
+GROUP BY
+  rideable_type,
+  member_casual
